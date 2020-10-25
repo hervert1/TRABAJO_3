@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>programacion para internet </title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!--<script>
+        var config = {
+            type: Phaser.WEBGL,
+            width: 800,
+            height: 600,
+            //scene: [Breakout],
+            physics: {
+                default: 'arcade'
+            },
+            scene: {
+                preload: preload,
+                create: create,
+                update: update
+            }
+        };
+
+        var game = new Phaser.Game(config);
+
+        var Breakout;
+
+
+            function preload () {
+                this.load.atlas('assets', 'assets/games/breakout/breakout.png',
+                    'assets/games/breakout/breakout.json');
+            }
+
+            Extends: Phaser.Scene
+
+                function Breakout() {
+                    Phaser.Scene.call(this, {
+                        key: 'breakout'
+                    });
+
+                    this.bricks;
+                    this.paddle;
+                    this.ball;
+                    this.Scene
+                }
+
+            function create () {
+                
+                //  Enable world bounds, but disable the floor
+                this.physics.world.setBoundsCollision(true, true, true, false);
+
+                //  Create the bricks in a 10x6 grid
+                this.bricks = this.physics.add.staticGroup({
+                    key: 'assets',
+                    frame: ['blue1', 'red1', 'green1', 'yellow1', 'silver1', 'purple1'],
+                    frameQuantity: 10,
+                    gridAlign: {
+                        width: 10,
+                        height: 6,
+                        cellWidth: 64,
+                        cellHeight: 32,
+                        x: 112,
+                        y: 100
+                    }
+                });
+
+                this.ball = this.physics.add.image(400, 500, 'assets', 'ball1').setCollideWorldBounds(true)
+                    .setBounce(1);
+                this.ball.setData('onPaddle', true);
+
+                this.paddle = this.physics.add.image(400, 550, 'assets', 'paddle1').setImmovable();
+
+                //  Our colliders
+                this.physics.add.collider(this.ball, this.bricks, this.hitBrick, null, this);
+                this.physics.add.collider(this.ball, this.paddle, this.hitPaddle, null, this);
+
+                //  Input events
+                this.input.on('pointermove', function (pointer) {
+
+                    //  Keep the paddle within the game
+                    this.paddle.x = Phaser.Math.Clamp(pointer.x, 52, 748);
+
+                    if (this.ball.getData('onPaddle')) {
+                        this.ball.x = this.paddle.x;
+                    }
+
+                }, this);
+
+                this.input.on('pointerup', function (pointer) {
+
+                    if (this.ball.getData('onPaddle')) {
+                        this.ball.setVelocity(-75, -300);
+                        this.ball.setData('onPaddle', false);
+                    }
+
+                }, this);
+            }
+
+            /*hitBrick: function (ball, brick) {
+                brick.disableBody(true, true);
+
+                if (this.bricks.countActive() === 0) {
+                    this.resetLevel();
+                }
+            },
+
+            resetBall: function () {
+                this.ball.setVelocity(0);
+                this.ball.setPosition(this.paddle.x, 500);
+                this.ball.setData('onPaddle', true);
+            },
+
+            resetLevel: function () {
+                this.resetBall();
+
+                this.bricks.children.each(function (brick) {
+
+                    brick.enableBody(false, 0, 0, true, true);
+
+                });
+            },
+
+            hitPaddle: function (ball, paddle) {
+                var diff = 0;
+
+                if (ball.x < paddle.x) {
+                    //  Ball is on the left-hand side of the paddle
+                    diff = paddle.x - ball.x;
+                    ball.setVelocityX(-10 * diff);
+                } else if (ball.x > paddle.x) {
+                    //  Ball is on the right-hand side of the paddle
+                    diff = ball.x - paddle.x;
+                    ball.setVelocityX(10 * diff);
+                } else {
+                    //  Ball is perfectly in the middle
+                    //  Add a little random X to stop it bouncing straight up!
+                    ball.setVelocityX(2 + Math.random() * 8);
+                }
+            },
+
+            update: function () {
+                if (this.ball.y > 600) {
+                    this.resetBall();
+                }
+            }*/
+
+        
+    </script>-->
+    <script type="text/javascript">
+       /* var gameOver = false;
+        var score = 0;
+        var scoreText;*/
+        var Breakout = new Phaser.Class({
+
+            Extends: Phaser.Scene,
+
+
+            initialize:
+
+                function Breakout() {
+                    Phaser.Scene.call(this, {
+                        key: 'breakout'
+                    });
+
+                    this.bricks;
+                    this.paddle;
+                    this.ball;
+                    /*this.score;
+                    this.scoreText;
+                    this.gameOver;*/
+                },
+
+            preload: function () {
+                this.load.atlas('assets', 'assets/breakout.png',
+                    'assets/breakout.json');
+            },
+
+
+            create: function () {
+
+                /*this.data.set('lives', 3);
+                this.data.set('level', 5);
+                this.data.set('score', 2000);
+
+                var text = this.add.text(50, 20, '', {
+                    font: '64px Courier',
+                    fill: '#00ff00'
+                });
+
+                text.setText([
+                    'Level: ' + this.data.get('level'),
+                    'Lives: ' + this.data.get('lives'),
+                    'Score: ' + this.data.get('score')
+                ]);*/
+                
+                //  Enable world bounds, but disable the floor
+                this.physics.world.setBoundsCollision(true, true, true, false);
+
+                //  Create the bricks in a 10x6 grid
+                this.bricks = this.physics.add.staticGroup({
+                    key: 'assets',
+                    frame: ['blue2', 'blue2', 'blue2', 'red2', 'red2', 'red2', 'green2',
+                        'green2'
+                    ],
+                    frameQuantity: 10,
+                    gridAlign: {
+                        width: 10,
+                        height: 9,
+                        cellWidth: 64,
+                        cellHeight: 32,
+                        x: 100,
+                        y: 60
+                    }
+                });
+
+                this.ball = this.physics.add.image(400, 500, 'assets', 'ball2').setCollideWorldBounds(true)
+                    .setBounce(1);
+                this.ball.setData('onPaddle', true);
+
+                this.paddle = this.physics.add.image(400, 530, 'assets', 'paddle2').setImmovable();
+
+                /*this.scoreText = this.add.text(16, 16, 'Score: 0', {
+                    fontSize: '20px',
+                    fill: '#FFF'
+                });*/
+                //  Our colliders
+                this.physics.add.collider(this.ball, this.bricks, this.hitBrick, null, this);
+                this.physics.add.collider(this.ball, this.paddle, this.hitPaddle, null, this);
+
+                //  Input events
+                this.input.on('pointermove', function (pointer) {
+
+                    //  Keep the paddle within the game
+                    this.paddle.x = Phaser.Math.Clamp(pointer.x, 52, 748);
+
+                    if (this.ball.getData('onPaddle')) {
+                        this.ball.x = this.paddle.x;
+                    }
+
+                }, this);
+
+                this.input.on('pointerup', function (pointer) {
+
+                    if (this.ball.getData('onPaddle')) {
+                        this.ball.setVelocity(-75, -300);
+                        this.ball.setData('onPaddle', false);
+                    }
+
+                }, this);
+            },
+
+            hitBrick: function (ball, brick) {
+                brick.disableBody(true, true);
+
+                //  Add and update the score
+                /*this.score += 10;
+                this.scoreText.setText('Score: ' + score);*/
+
+                if (this.bricks.countActive() === 0) {
+                    this.resetLevel();
+                }
+            },
+
+            resetBall: function () {
+                this.ball.setVelocity(0);
+                this.ball.setPosition(this.paddle.x, 500);
+                this.ball.setData('onPaddle', true);
+            },
+
+            resetLevel: function () {
+                this.resetBall();
+
+                this.bricks.children.each(function (brick) {
+
+                    brick.enableBody(false, 0, 0, true, true);
+
+                });
+            },
+
+            hitPaddle: function (ball, paddle) {
+                var diff = 0;
+
+                if (ball.x < paddle.x) {
+                    //  Ball is on the left-hand side of the paddle
+                    diff = paddle.x - ball.x;
+                    ball.setVelocityX(-10 * diff);
+                } else if (ball.x > paddle.x) {
+                    //  Ball is on the right-hand side of the paddle
+                    diff = ball.x - paddle.x;
+                    ball.setVelocityX(10 * diff);
+                } else {
+                    //  Ball is perfectly in the middle
+                    //  Add a little random X to stop it bouncing straight up!
+                    ball.setVelocityX(2 + Math.random() * 8);
+                }
+            },
+
+            update: function () {
+
+                if (this.ball.y > 600) {
+                    this.resetBall();
+
+                }
+            }
+
+        });
+
+        var config = {
+            type: Phaser.AUTO,
+            width: 800,
+            height: 600,
+            scene: [Breakout],
+            physics: {
+                default: 'arcade',
+            }
+        };
+
+        var game = new Phaser.Game(config);
+    </script>
+</body>
+
+</html>
